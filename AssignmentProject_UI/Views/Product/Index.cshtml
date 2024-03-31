@@ -118,6 +118,7 @@
                         var dataObject = {
                             ImageBase64: src.split(',')[1],
                             ImageID: null,
+                            Status: "Active",
                         };
                         imageData.push(dataObject);
                         uploadedFiles++;
@@ -154,6 +155,7 @@
             Amount: $("#txtAmount").val(),
             Brand: $("#txtBrand").val(),
             Quantity: $("#txtQuantity").val(),
+            Status:"Active",
             Images: imageData
         };
         console.log(RequestObject);
@@ -166,6 +168,10 @@
             success: function (response) {
                 // Handle successful response
                 console.log(response);
+                if (response.isSuccess){
+                    alert("Product Added Successfully");
+                    window.location.reload();
+                }
                 // Redirect or do something else as needed
             },
             error: function (xhr, status, error) {

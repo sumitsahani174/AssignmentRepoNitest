@@ -28,6 +28,7 @@ namespace AssignmentProject.DataAccessLayer.Implementation
                     parameters.Add("@Amount", productInventory.Amount);
                     parameters.Add("@Brand", productInventory.Brand);
                     parameters.Add("@Quantity", productInventory.Quantity);
+                    parameters.Add("@Status", productInventory.Status);
                     ProductInventoryResponse productInventory1 = new ProductInventoryResponse();
                     productInventory1 = connection.Query<ProductInventoryResponse>("InsertProductInventory", parameters, commandType: CommandType.StoredProcedure).FirstOrDefault();
                     for (int i = 0; i < productInventory.Images.Count; i++)
@@ -36,6 +37,7 @@ namespace AssignmentProject.DataAccessLayer.Implementation
                         Imageparameters.Add("@InventoryType", productInventory.InventoryType);
                         Imageparameters.Add("@ProductID", productInventory1.ProductID);
                         Imageparameters.Add("@ImageData", productInventory.Images[i].ImageBase64);
+                        Imageparameters.Add("@Status", productInventory.Images[i].Status);
                         connection.ExecuteScalar<int>("InsertProductImage", Imageparameters, commandType: CommandType.StoredProcedure);
                     }
                     genericResponse.IsSuccess = true;
@@ -71,6 +73,7 @@ namespace AssignmentProject.DataAccessLayer.Implementation
                     parameters.Add("@Amount", productInventory.Amount);
                     parameters.Add("@Brand", productInventory.Brand);
                     parameters.Add("@Quantity", productInventory.Quantity);
+                    parameters.Add("@Status", productInventory.Status);
                     List<ProductListResponse> productInventory1 = new List<ProductListResponse>();
                     productInventory1 = connection.Query<ProductListResponse>("InsertProductInventory", parameters, commandType: CommandType.StoredProcedure).ToList();
                     for (int i = 0; i < productInventory1.Count; i++)
@@ -79,6 +82,7 @@ namespace AssignmentProject.DataAccessLayer.Implementation
                         Imageparameters.Add("@InventoryType", productInventory.InventoryType);
                         Imageparameters.Add("@ProductID", productInventory1[i].ProductID);
                         Imageparameters.Add("@ImageData", null);
+                        Imageparameters.Add("@Status", productInventory.Images[i].Status);
                         productInventory1[i].imageLists = connection.Query<ImageList>("InsertProductImage", Imageparameters, commandType: CommandType.StoredProcedure).ToList();
                     }
                     genericResponse.IsSuccess = true;
