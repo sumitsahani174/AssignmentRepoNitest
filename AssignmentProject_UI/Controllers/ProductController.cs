@@ -23,9 +23,21 @@ namespace AssignmentProject_UI.Controllers
         {
             return View();
         }
+        public IActionResult Get()
+        {
+            return View();
+        }
 
         [HttpPost]
         public IActionResult AddProduct([FromBody] ProductInventoryRequest model)
+        {
+            GenericResponse genericResponse = new GenericResponse();
+            genericResponse = _product.ProductInventoryManagement(model);
+            return Ok(genericResponse);
+        }
+
+        [HttpPost]
+        public IActionResult GetProductLists([FromBody] ProductInventoryRequest model)
         {
             GenericResponse genericResponse = new GenericResponse();
             genericResponse = _product.ProductInventoryManagement(model);

@@ -7,6 +7,7 @@
         public string Amount { get; set; }
         public string Quantity { get; set; }
         public string Brand { get; set; }
+        public string Status { get; set; }
         public List<ImageList> imageLists { get; set; }
     }
     public class ImageList

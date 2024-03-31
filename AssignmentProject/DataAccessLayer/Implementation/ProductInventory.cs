@@ -82,7 +82,7 @@ namespace AssignmentProject.DataAccessLayer.Implementation
                         Imageparameters.Add("@InventoryType", productInventory.InventoryType);
                         Imageparameters.Add("@ProductID", productInventory1[i].ProductID);
                         Imageparameters.Add("@ImageData", null);
-                        Imageparameters.Add("@Status", productInventory.Images[i].Status);
+                        Imageparameters.Add("@Status", "");
                         productInventory1[i].imageLists = connection.Query<ImageList>("InsertProductImage", Imageparameters, commandType: CommandType.StoredProcedure).ToList();
                     }
                     genericResponse.IsSuccess = true;

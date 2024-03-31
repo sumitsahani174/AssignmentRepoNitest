@@ -1,0 +1,262 @@
+﻿@{
+    ViewData["Title"] = "Get";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+
+
+<div class="container h-100">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+        <div class="col-xl-12">
+
+            <h1 class="text-white mb-4">Apply for a job</h1>
+
+            <div class="card" style="border-radius: 15px;">
+                <div class="card-body">
+
+                    <div class="row align-items-center py-3">
+                        <div class="col-md-5 ps-5">
+
+                            <h6 class="mb-0">Name</h6>  <input id="txtFilterName" type="text" class="form-control" />
+
+                        </div>
+                        <div class="col-md-5 pe-5">
+                            <h6 class="mb-0">Brand</h6>  <input id="txtFilterBrand" type="text" class="form-control" />
+                        </div>
+                        <div class="col-md-2 pe-5">
+                            <button type="button" id="btnSearch" class="btn btn-primary btn-sm" style="margin-bottom: -11px;">Search</button>
+                        </div>
+                    </div>
+
+                    <div class="row align-items-center pt-4 pb-3">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Name</th>
+                                    <th scope="col">Amount</th>
+                                    <th scope="col">Quantity</th>
+                                    <th scope="col">Brand</th>
+                                    <th scope="col">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="productBodyList">
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="updateProductModel" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog  modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Update Product Details</h5>
+                <button type="button" class="close" data-dismiss="modal" onclick="return CloseModal();" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="container h-100">
+                    <div class="row d-flex justify-content-center align-items-center h-100">
+                        <div class="col-xl-12">
+                            <div class="card" style="border-radius: 15px;">
+                                <div class="card-body">
+
+                                    <div class="row align-items-center pt-4 pb-3">
+                                        <div class="col-md-3 ps-5">
+
+                                            <h6 class="mb-0">Name</h6>
+
+                                        </div>
+                                        <div class="col-md-9 pe-5">
+
+                                            <input id="txtName" type="text" class="form-control" />
+
+                                        </div>
+                                    </div>
+
+                                    <hr class="mx-n3">
+
+                                    <div class="row align-items-center py-3">
+                                        <div class="col-md-3 ps-5">
+
+                                            <h6 class="mb-0">Amount</h6>
+
+                                        </div>
+                                        <div class="col-md-9 pe-5">
+
+                                            <input id="txtAmount" type="text" class="form-control" />
+
+                                        </div>
+                                    </div>
+
+                                    <hr class="mx-n3">
+
+                                    <div class="row align-items-center py-3">
+                                        <div class="col-md-3 ps-5">
+
+                                            <h6 class="mb-0">Quantity</h6>
+
+                                        </div>
+                                        <div class="col-md-9 pe-5">
+                                            <input type="text" id="txtQuantity" class="form-control" />
+                                        </div>
+                                    </div>
+                                    <div class="row align-items-center py-3">
+                                        <div class="col-md-3 ps-5">
+
+                                            <h6 class="mb-0">Brand</h6>
+
+                                        </div>
+                                        <div class="col-md-9 pe-5">
+
+                                            <input type="text" id="txtBrand" class="form-control" />
+
+                                        </div>
+                                    </div>
+                                    <div class="row align-items-center py-3">
+                                        <div class="col-md-3 ps-5">
+
+                                            <h6 class="mb-0">Status</h6>
+
+                                        </div>
+                                        <div class="col-md-9 pe-5">
+                                            <select name="ddlStatus" class="form-control" id="ddlStatus">
+                                                <option value="Active">Active</option>
+                                                <option value="InActive">InActive</option>
+                                            </select>
+
+                                        </div>
+                                    </div>
+                                    <hr class="mx-n3">
+
+                                   @*  <div class="row align-items-center py-3">
+                                        <div class="col-md-3 ps-5">
+
+                                            <h6 class="mb-0">Product Images</h6>
+
+                                        </div>
+                                        <div class="col-md-6 pe-5">
+                                            <div class="row" id="ProductImageList">
+                                                <div class="col-md-12">
+                                                    <input class="form-control imageUpload" type="file" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3 ps-5">
+                                            <button type="button" onclick="return AddProductImages();" class="btn btn-primary btn-sm">Add Image</button>
+                                        </div>
+                                    </div>
+                                    <div class="px-5 py-4">
+                                        <button type="submit" id="uploadButton" class="btn btn-primary btn-lg">Add Product</button>
+                                    </div> *@
+
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="return CloseModal();">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+<input type="hidden" id="txtProductID" />
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="~/js/site.js" asp-append-version="true"></script>
+
+<script type="text/javascript">
+    var ProductLists = [];
+    $(document).ready(function () {
+        $('#btnSearch').click(function () {
+            var ObjectData = {
+                inventoryType: "Get",
+                productId: "",
+                name: $("#txtFilterName").val(),
+                amount: "",
+                brand: $("#txtFilterBrand").val(),
+                quantity: "",
+                images: []
+            };
+            makeAjaxRequest(ObjectData);
+        });
+
+    });
+
+    function makeAjaxRequest(RequestObject) {
+      
+
+        $.ajax({
+            url: '@Url.Action("GetProductLists", "Product")',
+            method: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify(RequestObject),
+            success: function (response) {
+                // Handle successful response
+                console.log(response);
+                if (response.isSuccess == true) {
+                    BindHtmlData(response.data);
+                } else {
+                    alert("No Product found");
+                    return false;
+                }
+                return false;
+                // Redirect or do something else as needed
+            },
+            error: function (xhr, status, error) {
+                // Handle error
+                console.error(xhr.responseText);
+                alert('Failed to add product');
+            }
+        });
+    }
+
+    function BindHtmlData(DataLists) {
+        var HtmlTableData = "";
+        ProductLists = DataLists;
+        for (var i = 0; i < DataLists.length; i++) {
+            HtmlTableData = HtmlTableData + "<tr>";
+            HtmlTableData = HtmlTableData + "<th scope='row'>"+(1+i)+"</th>";
+            HtmlTableData = HtmlTableData + "<td>" + DataLists[i].name + "</td>";
+            HtmlTableData = HtmlTableData + "<td>" + DataLists[i].amount + "</td>";
+            HtmlTableData = HtmlTableData + "<td>" + DataLists[i].quantity + "</td>";
+            HtmlTableData = HtmlTableData + "<td>" + DataLists[i].brand + "</td>";
+            HtmlTableData = HtmlTableData + "<td><i data-toggle='modal' data-target='#updateProductModel' onclick='return CLickEdit(" + DataLists[i].productID + ")' class='fas fa-edit'></i></td>";
+            HtmlTableData = HtmlTableData + "</tr>";
+        }
+        $("#productBodyList").html(HtmlTableData);
+    }
+    function CLickEdit(ProductID) {
+
+        var filteredProducts = ProductLists.filter(function (product) {
+            return product.productID === ProductID;
+        });
+        $('#updateProductModel').modal('show');
+        console.log(filteredProducts);
+        $("#txtName").val(filteredProducts[0].name);
+        $("#txtAmount").val(filteredProducts[0].amount);
+        $("#txtQuantity").val(filteredProducts[0].quantity);
+        $("#txtBrand").val(filteredProducts[0].brand);
+        $("#txtProductID").val(filteredProducts[0].productID);
+        $("#ddlStatus").val(filteredProducts[0].status);
+    }
+    function CloseModal() {
+        $('#updateProductModel').modal('hide');
+        return false;
+    }
+
+</script>
+
+
+
