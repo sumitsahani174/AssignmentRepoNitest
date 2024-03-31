@@ -1,6 +1,6 @@
-﻿using AssignmentProject_UI.Models.DTOs.Request;
+﻿using Microsoft.AspNetCore.Identity.Data;
 
-namespace AssignmentProject_UI.DataAccessLayer.Interface
+namespace AssignmentProject.DataAccessLayer.Interface
 {
     public interface ILogin
     {
