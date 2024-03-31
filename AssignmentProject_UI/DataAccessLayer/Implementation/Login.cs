@@ -8,7 +8,7 @@ namespace AssignmentProject_UI.DataAccessLayer.Implementation
 
         public Login() { }
 
-        public void checkUserLogin(LoginRequest loginRequest)
+        public void CheckUserLogin(LoginRequest loginRequest)
         {
 
         }

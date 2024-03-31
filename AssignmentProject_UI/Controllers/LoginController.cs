@@ -7,7 +7,8 @@ namespace AssignmentProject_UI.Controllers
     public class LoginController : Controller
     {
         private readonly ILogin _login;
-        public LoginController(ILogin login) {
+        private readonly IConfiguration _configuration;
+        public LoginController(ILogin login, IConfiguration configuration) {
             _login = login;
         }
         public IActionResult Index()
@@ -18,7 +19,7 @@ namespace AssignmentProject_UI.Controllers
         [HttpPost]
         public IActionResult CheckUserLogin([FromBody] LoginRequest model)
         {
-            _login.checkUserLogin(model);
+            _login.CheckUserLogin(model);
             return Ok();
         }
     }

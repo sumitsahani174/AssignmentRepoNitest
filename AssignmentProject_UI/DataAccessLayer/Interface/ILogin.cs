@@ -4,6 +4,6 @@ namespace AssignmentProject_UI.DataAccessLayer.Interface
 {
     public interface ILogin
     {
-        public void checkUserLogin(LoginRequest loginRequest);
+        public void CheckUserLogin(LoginRequest loginRequest);
     }
 }
