@@ -18,7 +18,7 @@ namespace AssignmentProject.Controllers
         [Route("UserLogin")]
         public  void UserLogin([FromBody] LoginRequest model)
         {
-            _login.checkUserLogin(model);
+            //_login.checkUserLogin(model);
             Console.WriteLine("lll");
         }
     }
