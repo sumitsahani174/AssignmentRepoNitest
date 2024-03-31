@@ -1,4 +1,4 @@
-﻿namespace AssignmentProject_UI.Models.DTOs.Response
+﻿namespace AssignmentProject_UI.Models.DTOs.Request
 {
     public class LoginRequest
     {

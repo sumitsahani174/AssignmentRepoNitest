@@ -112,7 +112,7 @@ height: 100%;
                 success: function (response) {
                     // Handle successful login
                     console.log(response);
-                    alert('Login successful');
+                    window.location.href = "/Product";
                 },
                 error: function (xhr, status, error) {
                     // Handle login error

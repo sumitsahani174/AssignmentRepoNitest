@@ -1,5 +1,5 @@
 ﻿using AssignmentProject_UI.DataAccessLayer.Interface;
-using AssignmentProject_UI.Models.DTOs.Response;
+using AssignmentProject_UI.Models.DTOs.Request;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AssignmentProject_UI.Controllers

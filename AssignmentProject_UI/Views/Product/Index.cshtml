@@ -1,0 +1,180 @@
+﻿@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="container h-100">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+        <div class="col-xl-9">
+
+            <h1 class="text-white mb-4">Apply for a job</h1>
+
+            <div class="card" style="border-radius: 15px;">
+                <div class="card-body">
+
+                    <div class="row align-items-center pt-4 pb-3">
+                        <div class="col-md-3 ps-5">
+
+                            <h6 class="mb-0">Name</h6>
+
+                        </div>
+                        <div class="col-md-9 pe-5">
+
+                            <input id="txtName" type="text" class="form-control" />
+
+                        </div>
+                    </div>
+
+                    <hr class="mx-n3">
+
+                    <div class="row align-items-center py-3">
+                        <div class="col-md-3 ps-5">
+
+                            <h6 class="mb-0">Amount</h6>
+
+                        </div>
+                        <div class="col-md-9 pe-5">
+
+                            <input id="txtAmount" type="text" class="form-control" />
+
+                        </div>
+                    </div>
+
+                    <hr class="mx-n3">
+
+                    <div class="row align-items-center py-3">
+                        <div class="col-md-3 ps-5">
+
+                            <h6 class="mb-0">Quantity</h6>
+
+                        </div>
+                        <div class="col-md-9 pe-5">
+                            <input type="text" id="txtQuantity" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="row align-items-center py-3">
+                        <div class="col-md-3 ps-5">
+
+                            <h6 class="mb-0">Brand</h6>
+
+                        </div>
+                        <div class="col-md-9 pe-5">
+
+                            <input type="text" id="txtBrand" class="form-control" />
+
+                        </div>
+                    </div>
+                    <hr class="mx-n3">
+
+                    <div class="row align-items-center py-3">
+                        <div class="col-md-3 ps-5">
+
+                            <h6 class="mb-0">Product Images</h6>
+
+                        </div>
+                        <div class="col-md-6 pe-5">
+                            <div class="row" id="ProductImageList">
+                                <div class="col-md-12">
+                                    <input class="form-control imageUpload" type="file" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 ps-5">
+                            <button type="button" onclick="return AddProductImages();" class="btn btn-primary btn-sm">Add Image</button>
+                        </div>
+                    </div>
+                    <div class="px-5 py-4">
+                        <button type="submit" id="uploadButton" class="btn btn-primary btn-lg">Add Product</button>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="~/js/site.js" asp-append-version="true"></script>
+<script type="text/javascript">
+
+
+    $(document).ready(function () {
+        $('#uploadButton').click(function () {
+            var imageData = [];
+            var totalFiles = $("#ProductImageList > div").length;
+            var uploadedFiles = 0;
+
+            $("#ProductImageList > div").each(function (index, element) {
+                var $div = $(element);
+                var $fileInput = $div.find(".imageUpload");
+                if ($fileInput[0].files.length > 0) {
+                    var file = $fileInput[0].files[0];
+                    var reader = new FileReader();
+                    reader.readAsDataURL(file);
+                    reader.onload = function () {
+                        var src = reader.result;
+                        var dataObject = {
+                            ImageBase64: src.split(',')[1],
+                            ImageID: null,
+                        };
+                        imageData.push(dataObject);
+                        uploadedFiles++;
+                        if (uploadedFiles === totalFiles) {
+                            // All files processed, make the AJAX call
+                            makeAjaxRequest(imageData);
+                        }
+                    };
+                } else {
+                    alert("Please upload all the added images");
+                    return false;
+                }
+            });
+
+
+        });
+        $("#ProductImageList").on("click", ".removeBtn", function () {
+            $(this).parent().remove(); // Remove parent div when button is clicked
+        });
+
+    });
+    function AddProductImages() {
+        var productDiv = "";
+        productDiv = productDiv + "<div class='col-md-12'>";
+        productDiv = productDiv + "<input class='form-control imageUpload' type='file' /> <span class='removeBtn' href='#'>Remove</span>";
+        productDiv = productDiv + "</div>";
+        $("#ProductImageList").append(productDiv);
+    };
+    function makeAjaxRequest(imageData) {
+        var RequestObject = {
+            InventoryType: "Add",
+            ProductId: null,
+            Name: $("#txtName").val(),
+            Amount: $("#txtAmount").val(),
+            Brand: $("#txtBrand").val(),
+            Quantity: $("#txtQuantity").val(),
+            Images: imageData
+        };
+        console.log(RequestObject);
+
+        $.ajax({
+            url: '@Url.Action("AddProduct", "Product")',
+            method: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify(RequestObject),
+            success: function (response) {
+                // Handle successful response
+                console.log(response);
+                // Redirect or do something else as needed
+            },
+            error: function (xhr, status, error) {
+                // Handle error
+                console.error(xhr.responseText);
+                alert('Failed to add product');
+            }
+        });
+    }
+   
+</script>
+

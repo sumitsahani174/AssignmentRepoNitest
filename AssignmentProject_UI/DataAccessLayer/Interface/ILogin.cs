@@ -1,4 +1,4 @@
-﻿using AssignmentProject_UI.Models.DTOs.Response;
+﻿using AssignmentProject_UI.Models.DTOs.Request;
 
 namespace AssignmentProject_UI.DataAccessLayer.Interface
 {
