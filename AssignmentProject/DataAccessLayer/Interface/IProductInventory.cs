@@ -7,5 +7,6 @@ namespace AssignmentProject.DataAccessLayer.Interface
     {
         public GenericResponse AddProduct(ProductInventoryRequest productInventory);
         public GenericResponse GetProducts(ProductInventoryRequest productInventory);
+        public GenericResponse Update(ProductInventoryRequest productInventory);
     }
 }

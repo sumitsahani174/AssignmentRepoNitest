@@ -28,6 +28,10 @@ namespace AssignmentProject.Controllers
             {
                 genericResponse = _productInventory.GetProducts(productInventory);
             }
+            else if (productInventory.InventoryType == "Update")
+            {
+                genericResponse = _productInventory.GetProducts(productInventory);
+            }
             return genericResponse;
         }
     }

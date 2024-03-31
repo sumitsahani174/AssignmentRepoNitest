@@ -29,6 +29,7 @@ namespace AssignmentProject.DataAccessLayer.Implementation
                     parameters.Add("@Brand", productInventory.Brand);
                     parameters.Add("@Quantity", productInventory.Quantity);
                     parameters.Add("@Status", productInventory.Status);
+                    parameters.Add("@ProductId", productInventory.ProductId);
                     ProductInventoryResponse productInventory1 = new ProductInventoryResponse();
                     productInventory1 = connection.Query<ProductInventoryResponse>("InsertProductInventory", parameters, commandType: CommandType.StoredProcedure).FirstOrDefault();
                     for (int i = 0; i < productInventory.Images.Count; i++)
@@ -74,6 +75,7 @@ namespace AssignmentProject.DataAccessLayer.Implementation
                     parameters.Add("@Brand", productInventory.Brand);
                     parameters.Add("@Quantity", productInventory.Quantity);
                     parameters.Add("@Status", productInventory.Status);
+                    parameters.Add("@ProductId", productInventory.ProductId);
                     List<ProductListResponse> productInventory1 = new List<ProductListResponse>();
                     productInventory1 = connection.Query<ProductListResponse>("InsertProductInventory", parameters, commandType: CommandType.StoredProcedure).ToList();
                     for (int i = 0; i < productInventory1.Count; i++)
@@ -86,7 +88,7 @@ namespace AssignmentProject.DataAccessLayer.Implementation
                         productInventory1[i].imageLists = connection.Query<ImageList>("InsertProductImage", Imageparameters, commandType: CommandType.StoredProcedure).ToList();
                     }
                     genericResponse.IsSuccess = true;
-                    genericResponse.Message = "ProductAdded Successfully";
+                    genericResponse.Message = "Product Fetched Successfully";
                     genericResponse.Data = productInventory1;
                     // Execute the stored procedure using Dapper with multiple input parameters
                     //return connection.Query<Product>("InsertProductInventory", new { InventoryType = productInventory.InventoryType, ProductId = 0, @Name = productInventory.Name, }, commandType: System.Data.CommandType.StoredProcedure);
@@ -102,6 +104,54 @@ namespace AssignmentProject.DataAccessLayer.Implementation
                     ErrorMessage = "Something went wrong",
                 });
             }
+
+            return genericResponse;
+        }
+
+        public GenericResponse Update(ProductInventoryRequest productInventory)
+        {
+            GenericResponse genericResponse = new GenericResponse();
+            try
+            {
+                using (var connection = new SqlConnection(_configuration.GetSection("DatabaseSettings:ConnectionString").Value))
+                {
+                    connection.Open();
+                    var parameters = new DynamicParameters();
+                    parameters.Add("@InventoryType", productInventory.InventoryType);
+                    parameters.Add("@Name", productInventory.Name);
+                    parameters.Add("@Amount", productInventory.Amount);
+                    parameters.Add("@Brand", productInventory.Brand);
+                    parameters.Add("@Quantity", productInventory.Quantity);
+                    parameters.Add("@Status", productInventory.Status);
+                    parameters.Add("@ProductId", productInventory.ProductId);
+                    ProductInventoryResponse productInventory1 = new ProductInventoryResponse();
+                    productInventory1 = connection.Query<ProductInventoryResponse>("InsertProductInventory", parameters, commandType: CommandType.StoredProcedure).FirstOrDefault();
+                    //for (int i = 0; i < productInventory.Images.Count; i++)
+                    //{
+                    //    var Imageparameters = new DynamicParameters();
+                    //    Imageparameters.Add("@InventoryType", productInventory.InventoryType);
+                    //    Imageparameters.Add("@ProductID", productInventory1.ProductID);
+                    //    Imageparameters.Add("@ImageData", productInventory.Images[i].ImageBase64);
+                    //    Imageparameters.Add("@Status", productInventory.Images[i].Status);
+                    //    connection.ExecuteScalar<int>("InsertProductImage", Imageparameters, commandType: CommandType.StoredProcedure);
+                    //}
+                    genericResponse.IsSuccess = true;
+                    genericResponse.Message = "Product Updated Successfully";
+                    // Execute the stored procedure using Dapper with multiple input parameters
+                    //return connection.Query<Product>("InsertProductInventory", new { InventoryType = productInventory.InventoryType, ProductId = 0, @Name = productInventory.Name, }, commandType: System.Data.CommandType.StoredProcedure);
+                }
+            }
+            catch (Exception ex)
+            {
+                genericResponse.IsSuccess = false;
+                genericResponse.Message = "Something went wrong";
+                genericResponse.Errors.Add(new Error
+                {
+                    ErrorID = 500,
+                    ErrorMessage = "Something went wrong",
+                });
+            }
+
 
             return genericResponse;
         }
