@@ -1,5 +1,6 @@
 ﻿using AssignmentProject.DataAccessLayer.Interface;
 using AssignmentProject.Models.DTOs.Request;
+using AssignmentProject.Models.DTOs.Response;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AssignmentProject.Controllers
@@ -14,12 +15,13 @@ namespace AssignmentProject.Controllers
             _login = login;
         }
 
-        [HttpGet]
+        [HttpPost]
         [Route("UserLogin")]
-        public  void UserLogin([FromBody] LoginRequest model)
+        public  GenericResponse UserLogin(LoginRequest model)
         {
-            //_login.checkUserLogin(model);
-            Console.WriteLine("lll");
+            GenericResponse genericResponse = new GenericResponse();
+            genericResponse = _login.UserLogin(model);
+            return genericResponse;
         }
     }
 }

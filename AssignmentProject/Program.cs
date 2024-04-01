@@ -10,6 +10,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<IProductInventory, ProductInventory>();
+builder.Services.AddScoped<ILogin, Login>();
 
 var app = builder.Build();
 

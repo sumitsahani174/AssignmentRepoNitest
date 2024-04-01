@@ -1,5 +1,7 @@
 ﻿using AssignmentProject_UI.DataAccessLayer.Interface;
 using AssignmentProject_UI.Models.DTOs.Request;
+using AssignmentProject_UI.Models.DTOs.Response;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AssignmentProject_UI.Controllers
@@ -19,8 +21,17 @@ namespace AssignmentProject_UI.Controllers
         [HttpPost]
         public IActionResult CheckUserLogin([FromBody] LoginRequest model)
         {
-            _login.CheckUserLogin(model);
-            return Ok();
+            UserLoginResponse userLoginResponse = _login.CheckUserLogin(model);
+            if(userLoginResponse != null)
+            {
+                if (!string.IsNullOrEmpty(userLoginResponse.apiKey))
+                {
+                    HttpContext.Session.SetString("ApiKey", userLoginResponse.apiKey);
+                    HttpContext.Session.SetString("UserRole", userLoginResponse.userRole);
+                }
+                
+            }
+            return Ok(userLoginResponse);
         }
     }
 }

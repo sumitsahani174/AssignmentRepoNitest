@@ -171,6 +171,10 @@
                 if (response.isSuccess){
                     alert("Product Added Successfully");
                     window.location.reload();
+                } else {
+                    //CloseModal();
+                    alert(response.message);
+                    return false;
                 }
                 // Redirect or do something else as needed
             },

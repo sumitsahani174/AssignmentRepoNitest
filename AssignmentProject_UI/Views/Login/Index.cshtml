@@ -112,7 +112,13 @@ height: 100%;
                 success: function (response) {
                     // Handle successful login
                     console.log(response);
-                    window.location.href = "/Product/Get";
+                    if (response.apiKey != null) {
+                        window.location.href = "/Product/Get";
+                    } else {
+                        alert("Invalid login details");
+                        return false;
+                    }
+                    
                 },
                 error: function (xhr, status, error) {
                     // Handle login error

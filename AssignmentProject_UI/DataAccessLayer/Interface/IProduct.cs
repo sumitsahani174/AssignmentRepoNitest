@@ -5,6 +5,6 @@ namespace AssignmentProject_UI.DataAccessLayer.Interface
 {
     public interface IProduct
     {
-        GenericResponse ProductInventoryManagement(ProductInventoryRequest productInventory);
+        GenericResponse ProductInventoryManagement(ProductInventoryRequest productInventory,string Apikey);
     }
 }

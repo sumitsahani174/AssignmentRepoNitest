@@ -1,4 +1,5 @@
-﻿@{
+﻿@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
+@{
     ViewData["Title"] = "Get";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
@@ -32,7 +33,10 @@
                                     <th scope="col">Quantity</th>
                                     <th scope="col">Brand</th>
                                     <th scope="col">Status</th>
-                                    <th scope="col">Action</th>
+                                    @if (HttpContextAccessor.HttpContext.Session.GetString("UserRole") == "Admin")
+                                    {
+                                        <th scope="col">Action</th>
+                                    }
                                 </tr>
                             </thead>
                             <tbody id="productBodyList">
@@ -172,6 +176,8 @@
 
 <script type="text/javascript">
     var ProductLists = [];
+    var UserRole = "@HttpContextAccessor.HttpContext.Session.GetString("UserRole")";
+    
     $(document).ready(function () {
         $('#btnSearch').click(function () {
             var ObjectData = {
@@ -227,8 +233,9 @@
             HtmlTableData = HtmlTableData + "<td>" + DataLists[i].quantity + "</td>";
             HtmlTableData = HtmlTableData + "<td>" + DataLists[i].brand + "</td>";
             HtmlTableData = HtmlTableData + "<td>" + DataLists[i].status + "</td>";
-
-            HtmlTableData = HtmlTableData + "<td><i data-toggle='modal' data-target='#updateProductModel' onclick='return CLickEdit(" + DataLists[i].productID + ")' class='fas fa-edit'></i></td>";
+            if (UserRole == "Admin") {
+                HtmlTableData = HtmlTableData + "<td><i data-toggle='modal' data-target='#updateProductModel' onclick='return CLickEdit(" + DataLists[i].productID + ")' class='fas fa-edit'></i></td>";
+            }
             HtmlTableData = HtmlTableData + "</tr>";
         }
         $("#productBodyList").html(HtmlTableData);
@@ -279,6 +286,10 @@
                     CloseModal();
                     $("#btnSearch").click();
                     //window.location.reload();
+                } else {
+                    CloseModal();
+                    alert(response.message);
+                    return false;
                 }
                 // Redirect or do something else as needed
             },

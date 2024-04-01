@@ -1,9 +1,10 @@
-﻿using Microsoft.AspNetCore.Identity.Data;
+﻿using AssignmentProject.Models.DTOs.Request;
+using AssignmentProject.Models.DTOs.Response;
 
 namespace AssignmentProject.DataAccessLayer.Interface
 {
     public interface ILogin
     {
-        public void CheckUserLogin(LoginRequest loginRequest);
+        GenericResponse UserLogin(LoginRequest model);
     }
 }

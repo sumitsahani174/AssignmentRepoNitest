@@ -11,12 +11,10 @@ namespace AssignmentProject_UI.Controllers
 {
     public class ProductController : Controller
     {
-        private readonly IConfiguration _configuration;
         private readonly IProduct _product;
 
-        public ProductController(IConfiguration configuration, IProduct product)
+        public ProductController(IProduct product)
         {
-            _configuration = configuration;
             _product = product;
         }
         public IActionResult Index()
@@ -32,15 +30,17 @@ namespace AssignmentProject_UI.Controllers
         public IActionResult AddProduct([FromBody] ProductInventoryRequest model)
         {
             GenericResponse genericResponse = new GenericResponse();
-            genericResponse = _product.ProductInventoryManagement(model);
+            string Apikey = HttpContext.Session.GetString("ApiKey");
+
+            genericResponse = _product.ProductInventoryManagement(model, Apikey);
             return Ok(genericResponse);
         }
-
         [HttpPost]
         public IActionResult GetProductLists([FromBody] ProductInventoryRequest model)
         {
             GenericResponse genericResponse = new GenericResponse();
-            genericResponse = _product.ProductInventoryManagement(model);
+            string Apikey = HttpContext.Session.GetString("ApiKey");
+            genericResponse = _product.ProductInventoryManagement(model, Apikey);
             return Ok(genericResponse);
         }
     }

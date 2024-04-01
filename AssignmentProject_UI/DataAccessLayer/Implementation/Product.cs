@@ -19,7 +19,7 @@ namespace AssignmentProject_UI.DataAccessLayer.Implementation
             _configuration = configuration;
             _httpClient = httpClient;
         }
-        public  GenericResponse ProductInventoryManagement(ProductInventoryRequest productInventory)
+        public  GenericResponse ProductInventoryManagement(ProductInventoryRequest productInventory, string Apikey)
         {
             GenericResponse genericResponse = new GenericResponse();
             try
@@ -30,6 +30,7 @@ namespace AssignmentProject_UI.DataAccessLayer.Implementation
                 {
                     Content = new StringContent(jsonContent, Encoding.UTF8, "application/json")
                 };
+                request.Headers.Add("ApiKey", Apikey);
                 HttpResponseMessage response =  _httpClient.Send(request);
                 if (response.IsSuccessStatusCode)
                 {
